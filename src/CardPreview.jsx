@@ -125,9 +125,9 @@ export default function CardPreview() {
         "https://www.cardhoarder.com/cards/9251?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
     },
   });
-  const fetchURL = new URL("https://api.scryfall.com/cards/random");
+  const fetchURL = new URL("https://itsthisforthat.com/api.php");
 
-  fetchURL.searchParams.append("q", "c=white cmc=0");
+  // fetchURL.searchParams.append("q", "c=white cmc=0");
   useEffect(() => {
     fetch(fetchURL).then((res) => console.log(res));
   }, []);
