@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "mana-font": "^1.14.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
+    "react-string-replace": "^1.1.0",
     "sass": "^1.57.1"
   },
   "devDependencies": {

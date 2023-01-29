@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, Container } from "react-bootstrap";
-import CardPreview from "./CardPreview";
-import CardsList from "./CardsList";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import CardPreview from "./components/CardPreview";
+import CardsList from "./components/CardsList";
 
 export default function App() {
   const [card, setCard] = useState({});
-  const [isLoaded, setIsLoaded] = useState(false);
   const [cards, setCards] = useState([]);
+  const [currentQuery, setCurrentQuery] = useState("is:commander f:edh");
 
-  const query = "is:commander";
   const fetchURL = new URL("https://api.scryfall.com/cards/random");
 
   function getCardFromQuery() {
@@ -22,26 +21,38 @@ export default function App() {
       });
     }
     cards ?? setCard(cards[0]);
-    fetchURL.searchParams.append("q", query);
+    fetchURL.searchParams.append("q", currentQuery);
     fetch(fetchURL)
       .then((res) => res.json())
       .then((data) => {
         setCard(data);
       })
-      .then(() => setIsLoaded(true))
       .catch((err) => console.log(err));
   }
   useEffect(() => {
     getCardFromQuery();
   }, []);
 
+  function handleChange(e) {
+    setCurrentQuery(e.target.value);
+  }
+
   return (
     <Container>
-      <div className="d-flex">
-        <Button onClick={getCardFromQuery}>Fetch New Card</Button>
-        <CardsList cards={cards} />
-      </div>
-      <CardPreview card={card} />
+      <Row>
+        <Col md={10} lg={8} className="offset-md-1 offset-lg-2">
+          <div className="card-query-form">
+            <input
+              value={currentQuery}
+              placeholder="scryfall query"
+              onChange={handleChange}
+            />
+            <Button onClick={getCardFromQuery}>Fetch New Card</Button>
+          </div>
+          <CardsList cards={cards} className="my-2" />
+          <CardPreview card={card} />
+        </Col>
+      </Row>
     </Container>
   );
 }
