@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import CardPreview from "./components/CardPreview";
 import CardsList from "./components/CardsList";
+import "./App.scss";
 
 export default function App() {
   const [card, setCard] = useState({});
@@ -41,16 +42,28 @@ export default function App() {
     <Container>
       <Row>
         <Col md={10} lg={8} className="offset-md-1 offset-lg-2">
-          <div className="card-query-form">
-            <input
-              value={currentQuery}
-              placeholder="scryfall query"
-              onChange={handleChange}
-            />
-            <Button onClick={getCardFromQuery}>Fetch New Card</Button>
-          </div>
-          <CardsList cards={cards} className="my-2" />
-          <CardPreview card={card} />
+          <h1 className="my-3">Scryfall Random Card Query</h1>
+          <hr />
+          <Form className="card-query-form mb-3">
+            <div className="flex-grow-1">
+              <label for="input-query" className="visually-hidden">
+                Scryfall query
+              </label>
+              <input
+                id="input-query"
+                className="form-control"
+                type="text"
+                value={currentQuery}
+                placeholder="scryfall query"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Button onClick={getCardFromQuery}>Fetch New Card</Button>
+            </div>
+          </Form>
+          <CardPreview card={card} className="my-3" />
+          <CardsList cards={cards} className="fixed-md-bottom" />
         </Col>
       </Row>
     </Container>

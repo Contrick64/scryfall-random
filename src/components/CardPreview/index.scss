@@ -1,8 +1,19 @@
 .ms {
+  font-size: 0.7rem;
   &.ms-cost {
     margin-left: 0 !important;
   }
 }
 .mtg-card {
   white-space: pre-wrap;
+  .card-cost {
+    white-space: nowrap;
+  }
+}
+.mtg-card-img {
+  max-height: 50vh;
+  max-height: 50dvh;
+}
+.flex-center {
+  justify-content: center;
 }

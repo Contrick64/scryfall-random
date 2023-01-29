@@ -17,16 +17,16 @@ function replaceManaSymbols(string) {
 export default function CardPreview({ card, ...attrs }) {
   if (card && Object.keys(card).length) {
     return (
-      <Row className="mtg-card" {...attrs}>
-        <Col>
+      <Row {...attrs} className={`mtg-card ${attrs.className}`}>
+        <Col md={5} className="d-flex flex-center mb-3">
           <a href={card.scryfall_uri}>
-            <img className="img-fluid" src={card.image_uris.png} />
+            <img className="img-fluid mtg-card-img" src={card.image_uris.png} />
           </a>
         </Col>
         <Col>
           <p className="card-title">
             {card.name}
-            <span className="mx-2 card-subtitle">
+            <span className="mx-2 card-cost">
               {replaceManaSymbols(card.mana_cost)}
             </span>
           </p>
