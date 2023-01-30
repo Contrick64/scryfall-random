@@ -11,14 +11,17 @@ export default function App() {
 
   const fetchURL = new URL("https://api.scryfall.com/cards/random");
 
-  function getCardFromQuery() {
+  function getCardFromQuery(e) {
+    e && e.preventDefault();
     fetchURL.searchParams.append("q", currentQuery);
     fetch(fetchURL)
       .then((res) => res.json())
       .then((cardObj) => {
+        console.log(cardObj);
+        if (cardObj.object == "error") throw new Error(cardObj.details);
         setCards((prev) => [cardObj, ...prev.slice(0, 4)]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err));
     setCard(0);
   }
   useEffect(() => {
@@ -39,7 +42,7 @@ export default function App() {
         >
           <h1 className="my-3">Scryfall Random Card Query</h1>
           <hr />
-          <Form className="card-query-form mb-3">
+          <Form className="card-query-form mb-3" onSubmit={getCardFromQuery}>
             <div className="flex-grow-1">
               <label htmlFor="input-query" className="visually-hidden">
                 Scryfall query
@@ -54,7 +57,7 @@ export default function App() {
               />
             </div>
             <div>
-              <Button onClick={getCardFromQuery}>Fetch New Card</Button>
+              <Button type="submit">Fetch New Card</Button>
             </div>
           </Form>
           <CardPreview card={cards[card]} className="my-3" />
