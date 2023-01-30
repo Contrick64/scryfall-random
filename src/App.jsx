@@ -17,7 +17,6 @@ export default function App() {
     fetch(fetchURL)
       .then((res) => res.json())
       .then((cardObj) => {
-        console.log(cardObj);
         if (cardObj.object == "error") throw new Error(cardObj.details);
         setCards((prev) => [cardObj, ...prev.slice(0, 4)]);
       })
