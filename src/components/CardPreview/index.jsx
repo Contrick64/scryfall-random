@@ -16,11 +16,11 @@ function replaceManaSymbols(string) {
 }
 
 export default function CardPreview({ card, ...attrs }) {
+  const [face, setFace] = useState();
+  useEffect(() => {
+    setFace(0);
+  }, [card]);
   if (card && Object.keys(card).length) {
-    const [face, setFace] = useState();
-    useEffect(() => {
-      setFace(0);
-    }, [card]);
     const myCard = card.card_faces ? card.card_faces[face] : card;
     const scryfall_link = card.scryfall_uri;
     return (
