@@ -18,13 +18,14 @@
     transform: translateY(40px);
     transition: transform 200ms ease-in-out;
     opacity: 0.5;
-    &:hover {
-      transition: transform 200ms ease-in-out;
-      opacity: 1;
-      transform: translateY(5px);
-    }
-    &.selected {
-      transform: translateY(-5px);
-    }
+  }
+  &:hover img {
+    transition: transform 200ms ease-in-out;
+    opacity: 0.8;
+    transform: translateY(5px);
+  }
+  &.selected img {
+    opacity: 1;
+    transform: translateY(-5px);
   }
 }

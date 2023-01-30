@@ -1,9 +1,13 @@
 import "./index.scss";
 
 export default function CardsList({ card, cards, setCard, ...attrs }) {
-  const cardElements = cards.map((card) => (
-    <button className="cardslist-card unbutton" key={card.id}>
-      <img src={card.image_uris?.png} />
+  const cardElements = cards.map((cardObj, i) => (
+    <button
+      className={`cardslist-card unbutton ${i == card ? "selected" : ""}`}
+      key={card.id}
+      onClick={() => setCard(i)}
+    >
+      <img src={cardObj.image_uris?.png} />
     </button>
   ));
   return (
