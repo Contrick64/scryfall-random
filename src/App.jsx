@@ -5,30 +5,21 @@ import CardsList from "./components/CardsList";
 import "./App.scss";
 
 export default function App() {
-  const [card, setCard] = useState({});
+  const [card, setCard] = useState();
   const [cards, setCards] = useState([]);
   const [currentQuery, setCurrentQuery] = useState("is:commander f:edh");
 
   const fetchURL = new URL("https://api.scryfall.com/cards/random");
 
   function getCardFromQuery() {
-    if (card && Object.keys(card).length) {
-      setCards((prev) => {
-        if (prev.length == 5) {
-          return [card, ...prev.slice(0, 4)];
-        } else {
-          return [card, ...prev];
-        }
-      });
-    }
-    cards ?? setCard(cards[0]);
     fetchURL.searchParams.append("q", currentQuery);
     fetch(fetchURL)
       .then((res) => res.json())
-      .then((data) => {
-        setCard(data);
+      .then((cardObj) => {
+        setCards((prev) => [cardObj, ...prev.slice(0, 4)]);
       })
       .catch((err) => console.log(err));
+    setCard(0);
   }
   useEffect(() => {
     getCardFromQuery();
@@ -41,12 +32,16 @@ export default function App() {
   return (
     <Container>
       <Row>
-        <Col md={10} lg={8} className="offset-md-1 offset-lg-2">
+        <Col
+          md={10}
+          lg={8}
+          className=" d-flex flex-column maincol offset-md-1 offset-lg-2"
+        >
           <h1 className="my-3">Scryfall Random Card Query</h1>
           <hr />
           <Form className="card-query-form mb-3">
             <div className="flex-grow-1">
-              <label for="input-query" className="visually-hidden">
+              <label htmlFor="input-query" className="visually-hidden">
                 Scryfall query
               </label>
               <input
@@ -62,8 +57,8 @@ export default function App() {
               <Button onClick={getCardFromQuery}>Fetch New Card</Button>
             </div>
           </Form>
-          <CardPreview card={card} className="my-3" />
-          <CardsList cards={cards} className="fixed-md-bottom" />
+          <CardPreview card={cards[card]} className="my-3" />
+          <CardsList setCard={setCard} cards={cards} card={card} />
         </Col>
       </Row>
     </Container>

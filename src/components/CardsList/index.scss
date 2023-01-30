@@ -1,9 +1,30 @@
 .card-row {
-  display: flex;
-  flex-direction: row;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 0.5rem;
-  justify-content: center;
-  padding: 1rem 0;
-  background-color: lightgray;
-  height: 150px;
+  padding: 0.5rem 0.5rem 0;
+  .cardslist-card {
+    max-height: 120px;
+    img {
+      max-width: 100%;
+    }
+  }
+}
+.unbutton {
+  border: none;
+  background: none;
+  img {
+    transform: translateY(40px);
+    transition: transform 200ms ease-in-out;
+    opacity: 0.5;
+    &:hover {
+      transition: transform 200ms ease-in-out;
+      opacity: 1;
+      transform: translateY(5px);
+    }
+    &.selected {
+      transform: translateY(-5px);
+    }
+  }
 }
