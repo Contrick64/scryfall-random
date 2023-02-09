@@ -1,31 +1,30 @@
 .card-row {
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  display: inline-flex;
+  // grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 0.5rem;
   padding: 0.5rem 0.5rem 0;
   .cardslist-card {
     max-height: 120px;
+    width: 20%;
     img {
       max-width: 100%;
+      transform: translateY(40px);
+      transition: transform 200ms ease-in-out;
+      opacity: 0.5;
+    }
+    &:hover img {
+      transition: transform 200ms ease-in-out;
+      opacity: 0.8;
+      transform: translateY(5px);
+    }
+    &.selected img {
+      opacity: 1;
+      transform: translateY(-5px);
     }
   }
 }
 .unbutton {
   border: none;
   background: none;
-  img {
-    transform: translateY(40px);
-    transition: transform 200ms ease-in-out;
-    opacity: 0.5;
-  }
-  &:hover img {
-    transition: transform 200ms ease-in-out;
-    opacity: 0.8;
-    transform: translateY(5px);
-  }
-  &.selected img {
-    opacity: 1;
-    transform: translateY(-5px);
-  }
 }

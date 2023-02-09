@@ -6,7 +6,7 @@ export default function CardsList({ card, cards, setCard, ...attrs }) {
       .image_uris.png;
     return (
       <button
-        key={card.id}
+        key={cardObj.id}
         className={`cardslist-card unbutton ${i == card ? "selected" : ""}`}
         onClick={() => setCard(i)}
       >
@@ -16,7 +16,9 @@ export default function CardsList({ card, cards, setCard, ...attrs }) {
   });
   return (
     <footer {...attrs} className={`card-row mt-auto footer ${attrs.className}`}>
-      {cardElements ? cardElements : "No card history to show"}
+      <TransitionGroup>
+        {cardElements ? cardElements : "No card history to show"}
+      </TransitionGroup>
     </footer>
   );
 }
